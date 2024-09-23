@@ -847,12 +847,15 @@ public:
 	struct Super_set {
 		UCHAR Opcode;					// 0x00	// 0x48
 		UCHAR Nop;						// 0x01 // always 0x00 (opcode for Nop)
-		UCHAR Work_type;				// 0x02	// < 0x40		pSce->pWork->pSuper = GsIDMATRIX
-												// 0x40			pSce->pWork->pSuper = G.Player
-												// >= 0x80		pSce->pWork->pSuper = G.Use_flg[Work_no]
-		UCHAR Work_no;					// 0x03	// if Work_type = 0x40
-												// 		(if Work_no < 0x80) pSce->pWork->pSuper = G.Player.M
-												// 		else pSce->pWork->pSuper = G.Player.pSin_parts_ptr[Work_no & 0x7f].Workm
+		UCHAR Work_type;				// 0x02	// 0x00		pSce->pWork->pSuper = GsIDMATRIX
+												// 0x40		pSce->pWork->pSuper = G.Player.M
+												// 0x80		pSce->pWork->pSuper = G.Player.pTmd2
+												// 0xC0		
+		UCHAR Work_no;					// 0x03	// 
+												//	
+												//	if Work_type & 0x40
+												// 		(if Work_no & 0x80) { pSce->pWork->pSuper = G.Player.pSin_parts_ptr[Work_no & 0x7F].Workm }
+												//		else { pSce->pWork->pSuper = G.Player.M }
 		SHORT Pos_x;					// 0x04	// pSce->pWork->pSuper->Pos_x
 		SHORT Pos_y;					// 0x06	// pSce->pWork->pSuper->Pos_y
 		SHORT Pos_z;					// 0x08	// pSce->pWork->pSuper->Pos_z
@@ -937,9 +940,10 @@ public:
 		USHORT nItem;					// 0x10	// Numerical count of Item
 		USHORT Item_flg;				// 0x12	// G.Savegame.Item_flg or G.Savegame.Item_flg2 Bit
 		UCHAR Om_no;					// 0x14	// Numerical ID of MD1 model file (0xFF for none)
-		UCHAR Action;					// 0x15	// Predefined action taken to obtain
+		UCHAR Action;					// 0x15	// G.Ob_model[Om_no].Free0
 												// 0 = Stand to obtain
 												// 1 = Kneel to obtain
+												// 2 = G.Ob_model[Om_no].Be_flg = 0x80000000;
 	};
 
 	// 0x4F	// Sce_key_ck
@@ -1324,12 +1328,15 @@ public:
 	struct Super_on {
 		UCHAR Opcode;					// 0x00	// 0x72
 		UCHAR Nop;						// 0x01 // always 0x00 (opcode for Nop)
-		UCHAR Work_type;				// 0x02	// < 0x40		pSce->pWork->pSuper = GsIDMATRIX
-												// 0x40			pSce->pWork->pSuper = G.Player
-												// >= 0x80		pSce->pWork->pSuper = G.Use_flg[Work_no]
-		UCHAR Work_no;					// 0x03	// if Work_type = 0x40
-												// 		(if Work_no < 0x80) pSce->pWork->pSuper = G.Player.M
-												// 		else pSce->pWork->pSuper = G.Player.pSin_parts_ptr[Work_no & 0x7f].Workm
+		UCHAR Work_type;				// 0x02	// 0x00		pSce->pWork->pSuper = GsIDMATRIX
+												// 0x40		pSce->pWork->pSuper = G.Player.M
+												// 0x80		pSce->pWork->pSuper = G.Player.pTmd2
+												// 0xC0		
+		UCHAR Work_no;					// 0x03	// 
+												//	
+												//	if Work_type & 0x40
+												// 		(if Work_no & 0x80) { pSce->pWork->pSuper = G.Player.pSin_parts_ptr[Work_no & 0x7F].Workm }
+												//		else { pSce->pWork->pSuper = G.Player.M }
 		SHORT Mat_x;					// 0x04	// MATRIX.t[0][0]
 		SHORT Mat_y;					// 0x06	// MATRIX.t[0][1]
 		SHORT Mat_z;					// 0x08	// MATRIX.t[0][2]
