@@ -1531,7 +1531,7 @@ public:
 		UCHAR Num;						// 0x02 // G.Savegame.Item_work[Item_no].Num
 	};
 
-	// 0x89	// Sets sub-player life to G.pEnemy[1]->Max_life (200 for Leon disk), restores health
+	// 0x89	// Sets sub-player life to G.pEnemy[1]->Max_life (200 for Leon disk), restores health and sets sub-player to Fine status (the latter only in savedata)
 	struct Plc_life_max {
 		UCHAR Opcode;					// 0x00 // 0x89
 	};
