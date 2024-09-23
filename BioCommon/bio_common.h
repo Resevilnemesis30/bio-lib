@@ -65,8 +65,8 @@ public:
 	// RDT File Room ID
 	uint8_t Room;
 
-	// RDT File Player ID
-	uint8_t Player;
+	// RDT File Disk ID
+	uint8_t Disk;
 
 	/*
 		Construction
@@ -75,7 +75,7 @@ public:
 		Game(Resident_Evil_Video_Game::Resident_Evil),
 		Stage(0),
 		Room(0),
-		Player(0)
+		Disk(0)
 	{
 	}
 
