@@ -94,10 +94,10 @@
 #define FLAG_MAP_I						33		// G.SaveData.Map_i_flg
 #define FLAG_ITEM_2						34		// G.SaveData.Item_flg2
 #define FLAG_MAP_O						35		// G.SaveData.Map_o_flg
-#define FLAG_EX_0						36		// G.SaveData.ExData0[0]
-#define FLAG_EX_1						37		// G.SaveData.ExData1[0]
-#define FLAG_EX_2						38		// G.SaveData.ExData2[0]
-#define FLAG_EX_3						39		// G.SaveData.ExData3[0]
+#define FLAG_EX_0						36		// G.SaveData.ExData0[0]  //ITEM flag despawned by randomizer in EX Battle
+#define FLAG_EX_1						37		// G.SaveData.ExData1[0]  //ITEM_2 flag despawned by randomizer in EX Battle
+#define FLAG_EX_2						38		// G.SaveData.ExData2[0]  //ENEMY flag despawned by randomizer in EX Battle
+#define FLAG_EX_3						39		// G.SaveData.ExData3[0]  //ENEMY_2 flag despawned by randomizer in EX Battle
 
 
 /*
@@ -215,8 +215,8 @@
 #define MEMBER_AT_H						36
 #define MEMBER_AT_D						37
 #define MEMBER_PARTS0_POS_Y				38
-#define MEMBER_SCA_OLD_X				39
-#define MEMBER_SCA_OLD_Z				40
+#define MEMBER_SCA_OLD_X				39  // seems to point at a wrong address and works as a normal POS_X, unless there are exceptions.
+#define MEMBER_SCA_OLD_Z				40 // seems to point at a wrong address and works as a normal POS_Z, unless there are exceptions.
 #define MEMBER_FREE1					41
 #define MEMBER_FREE6					42
 #define MEMBER_DAMAGE_CNT				43
@@ -260,6 +260,10 @@
 #define PLC_IDLE						6
 #define PLC_BACKWARD					7
 #define PLC_BACKWARD_SLOW				8
+#define PLC_TURN_AT             9 // the character turns to specific coords. It is not entirely precise.
+#define PLC_CLIMB            18 // the character climbs stairs and other collisions
+#define PLC_FREEZE           20
+#define PLC_TURN             21 // first two bytes establish the desired CdirY coords, while the other two at which speed to rotate. It is precise.
 
 
 /*
@@ -298,7 +302,10 @@
 #define SUPER_WORK_TYPE_IDMATRIX		0x00	// GsIDMATRIX
 #define SUPER_WORK_TYPE_PLAYER			0x40	// G.Player
 #define SUPER_WORK_TYPE_PLAYER_TMD2		0x80	// G.Player.pTmd2
-#define SUPER_WORK_TYPE_UNKNOWN			0xC0	// 
+#define SUPER_WORK_TYPE_PLAYER_TMD2		0x81	// G.SPL.pTmd2
+#define SUPER_WORK_TYPE_PLAYER_TMD2		0x82	// G.Enemy.pTmd2
+                                            // and so on from Enemy #00 to #31
+#define SUPER_WORK_TYPE_OB_MODEL			0xC0	// G.Ob_Model // Up to Room Model #31
 
 
 /*
@@ -323,7 +330,7 @@
 #define BGM_NOP							0
 #define BGM_START						1
 #define BGM_STOP						2
-#define BGM_REPLAY						3
+#define BGM_REPLAY						3  // does not replay a track from the start, at least on the PC version
 #define BGM_PAUSE						4
 #define BGM_FADEOUT						5
 
